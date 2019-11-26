@@ -21,7 +21,7 @@ import dev.fujioka.java.avancado.web.domain.Livro;
 import dev.fujioka.java.avancado.web.service.LivroService;
 
 @RestController
-@RequestMapping("/api/biblioteca")
+@RequestMapping("/api")
 public class LivroResource {
 
 	@Autowired

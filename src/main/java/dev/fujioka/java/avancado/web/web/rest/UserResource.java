@@ -13,37 +13,45 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserResource {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @GetMapping("/user")
-    public List<User> getUsers() {
-        return userService.findAll();
-    }
+	@GetMapping("/user")
+	public List<User> getUsers() {
+		return userService.findAll();
+	}
 
-    @PostMapping("/user")
-    public ResponseEntity<User>
-    save(@Valid @RequestBody User user) {
-        userService.save(user);
-        return ResponseEntity.ok(user);
-    }
+	@GetMapping("/user/autentica")
+	public boolean findByLoginAndPassword(@RequestParam(value = "login", required = true) String login,
+			@RequestParam(value = "password", required = true) String password) {
+		User retorno = userService.findByLoginAndPassword(login, password);
+		if (retorno != null)
+			return true;
+		return false;
+	}
 
-    @PutMapping("/user")
-    public ResponseEntity<User> update(@Valid @RequestBody User user) {
-        userService.save(user);
-        return ResponseEntity.ok().body(user);
-    }
+	@PostMapping("/user")
+	public ResponseEntity<User> save(@Valid @RequestBody User user) {
+		userService.save(user);
+		return ResponseEntity.ok(user);
+	}
 
-    @DeleteMapping("/user")
-    public ResponseEntity<String> delete(@Valid @RequestBody User user) {
-        userService.delete(user);
-       return  ResponseEntity.ok().body("User excluded ID: " + user.getId());
-    }
+	@PutMapping("/user")
+	public ResponseEntity<User> update(@Valid @RequestBody User user) {
+		userService.save(user);
+		return ResponseEntity.ok().body(user);
+	}
 
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        userService.deleteById(id);
-        return ResponseEntity.ok().body("User excluded ID: " + id);
-    }
+	@DeleteMapping("/user")
+	public ResponseEntity<String> delete(@Valid @RequestBody User user) {
+		userService.delete(user);
+		return ResponseEntity.ok().body("User excluded ID: " + user.getId());
+	}
+
+	@DeleteMapping("/user/{id}")
+	public ResponseEntity<String> deleteById(@PathVariable Long id) {
+		userService.deleteById(id);
+		return ResponseEntity.ok().body("User excluded ID: " + id);
+	}
 
 }

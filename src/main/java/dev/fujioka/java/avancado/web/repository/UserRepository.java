@@ -13,8 +13,12 @@ public interface UserRepository
         extends JpaRepository<User, Long> {
 
     List<User> findUserByFirstName(String name);
+    
+    @Query("select u from User u where u.login=:login and u.password=:password")
+    User findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
 
     @Query("select u from User u where u.firstName=:name")
     List<User> findByName(@Param("name") String name);
+    
 
 }

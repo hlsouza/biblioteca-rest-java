@@ -26,7 +26,7 @@ public class LivroRepositoryCustomImpl implements LivroRepositoryCustom {
 		if (editora != null)
 			jpql += "LOWER(l.editora) LIKE LOWER(\'%" + editora + "%\') AND ";
 		jpql += "1 = 1 ";
-		jpql += "ORDER BY l.id DESC";
+		jpql += "ORDER BY l.id ASC";
 
 		TypedQuery<Livro> query = entityManager.createQuery(jpql, Livro.class);
 		return query.getResultList();

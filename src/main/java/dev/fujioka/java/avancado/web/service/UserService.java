@@ -18,6 +18,10 @@ public class UserService implements CrudInterface<User> {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+    
+    public User findByLoginAndPassword(String login, String password) {
+    	return userRepository.findByLoginAndPassword(login, password);
+    }
 
     @Override
     public Optional<User> save(User entity) {
